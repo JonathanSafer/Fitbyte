@@ -15,11 +15,13 @@ function newEntry($user_id, $exercise, $quantity){//new entry for an exercise do
     
     $exercise = array (“push-ups”, “pull-ups”, “planks”);
 
-    if(in_array(“push-ups”, $exercise) { echo”Exercise found”;
-    }
-    else
-    {
-    Echo”Exercise not found”;  // not final.. 16-22
+    if(in_array(“push-ups”, $exercise)
+       {
+        echo ”Exercise found”;
+       }
+        else
+       {
+        echo ”Exercise not found”;  // not final.. 16-22
     
     if (is_int($quantity) && $quantity >0) {
     return TRUE;
