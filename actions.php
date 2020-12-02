@@ -10,16 +10,23 @@ function total($exercise, $name){ //return total amount of an exercise done by a
     return "$name has done $sum $exercise" . "<br>";
 }
 
-function newEntry($name, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
+function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
-    $query = "SELECT id FROM people WHERE name = '$name'";
-    $result = mysqli_query($GLOBALS['conn'], $query) or die("$name is not a valid name");
-    $p_id = mysqli_fetch_assoc($result)['id'];
-    $entry = "INSERT INTO body_weight_exercises (p_id, $exercise) VALUES ($p_id, $quantity)";
+    $entry = "INSERT INTO body_weight_exercises (p_id, $exercise, quantity) VALUES ($p_id, $exercise, $quantity)";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
     } else {
         return "Failed to log data <br>";
+    }
+}
+
+function protectedEntry($username, $password, $exercise, $quantity){
+    $query = "SELECT id FROM people WHERE username = '$username' AND password = sha1($password)";
+    $user_id = mysqli_query($GLOBALS['conn'], $query)
+    if($user_id){
+        $result = newEntry($user_id, $exercise, $quantity)
+    } else {
+        return "$username or password is incorrect";
     }
 }
 

@@ -1,7 +1,7 @@
 <?php include 'init.php'; 
     include 'actions.php';
     if (isset($_POST['log']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
-        $result = newEntry($_POST['username'], $_POST['exercise'], $_POST['quantity']);
+        $result = protectedEntry($_POST['username'], $_POST['password'], $_POST['exercise'], $_POST['quantity']);
     }
 ?>
 
