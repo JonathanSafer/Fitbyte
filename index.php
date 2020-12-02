@@ -32,17 +32,4 @@
     <?php if (isset($result)) { ?>
         <h3 class=center><?php echo $result ?></h3>
     <?php } ?>
-
-    <?php if (isset($_POST['input'])) { ?>
-        <form action="/index.php" method="post">
-            <h3>Log info:</h3>
-            Name:<br>
-            <input type="text" name="name"><br>
-            Exercise:<br>
-            <input type="text" name="exercise"><br>
-            Quantity: (For a plank enter # of seconds)<br>
-            <input type="text" name="quantity"><br>
-            <input type="submit" value="Submit" name="log">
-        </form>
-    <?php } ?>
 </body>
