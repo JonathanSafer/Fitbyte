@@ -12,6 +12,11 @@ function total($exercise, $name){ //return total amount of an exercise done by a
 
 function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
+    if (is_int($quantity) && $quantity >0) {
+  return TRUE;
+    }else{
+    echo “Enter a positive number";
+    }
     $entry = "INSERT INTO exercises (p_id, exercise, quantity) VALUES ($p_id, $exercise, $quantity)";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
