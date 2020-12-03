@@ -15,7 +15,10 @@ function newEntry($user_id, $exercise, $quantity){//new entry for an exercise do
     
   if (!is_int($quantity) && $quantity <0) {
      return 'You should enter a positive whole number'; }
-     
+    
+       if (empty($quantity) ) {
+     return 'Please enter quantity of exercise'; }
+    
     $entry = "INSERT INTO exercises (p_id, exercise, quantity) VALUES ('$user_id', '$exercise', '$quantity')";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
