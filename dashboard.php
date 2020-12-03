@@ -1,5 +1,6 @@
 <?php include 'init.php'; 
     include 'actions.php';
+    include 'settings.php';
     //somehow we need to know the userID here (presumably stored in a session? @Robert)
     $userId = '1';//to be replaced
     if (isset($_POST['log']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {

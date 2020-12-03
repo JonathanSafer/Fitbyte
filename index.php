@@ -1,9 +1,9 @@
 <?php include 'init.php'; 
     include 'actions.php';
+    include 'settings.php';
     if (isset($_POST['log']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
         $result = protectedEntry($_POST['username'], $_POST['password'], $_POST['exercise'], $_POST['quantity']);
     }
-    $exercises = array("push-ups", "pull-ups", "plank");
 ?>
 
 <!DOCTYPE html>
