@@ -13,23 +13,8 @@ function total($exercise, $user_id){ //return total amount of an exercise done b
 function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
     
-    // $exercise = strtoupper($exercise);
-    
-    // $exercise = array("push-ups", "pull-ups", "planks");
-
-    // if(in_array("push-ups", $exercise)
-    //    {
-    //     echo "Exercise found";
-    //    } else {
-    //     echo "Exercise not found";  // not final.. 16-22
-          
-   
-    // if (is_int($quantity) && $quantity >0) {
-    // return TRUE;
-    //   } else {
-        
-    // echo "Enter a positive number";   // Not sure yet if its working .. line24=28
-    //  }
+  if (!is_int($quantity) && $quantity <0) {
+     return 'You should enter a positive whole number'; }
      
     $entry = "INSERT INTO exercises (p_id, exercise, quantity) VALUES ('$user_id', '$exercise', '$quantity')";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
