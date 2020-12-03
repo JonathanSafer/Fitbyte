@@ -1,11 +1,11 @@
 <?php
 
 function total($exercise, $user_id){ //return total amount of an exercise done by a person
-    $query = "SELECT $amount FROM exercises WHERE p_id = $user_id AND exercise = $exercise";
+    $query = "SELECT quantity FROM exercises WHERE p_id = $user_id AND exercise = '$exercise'";
     $result = mysqli_query($GLOBALS['conn'], $query);
     $sum = 0;
     while($entry = mysqli_fetch_assoc($result)) {
-        $sum = $sum + $entry[$amount];
+        $sum = $sum + $entry['quantity'];
     }
     return "$sum";
 }
@@ -13,12 +13,8 @@ function total($exercise, $user_id){ //return total amount of an exercise done b
 function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
     
-    if (!is_int($quantity) && $quantity <0) {
+    if (!is_int($quantity) || $quantity <= 0) {
         return 'You should enter a positive whole number';
-    }
-    
-    if (empty($quantity) ) {
-        return 'Please enter quantity of exercise';
     }
     
     $entry = "INSERT INTO exercises (p_id, exercise, quantity) VALUES ('$user_id', '$exercise', '$quantity')";

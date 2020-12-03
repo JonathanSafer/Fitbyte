@@ -41,4 +41,12 @@
     <?php if (isset($result)) { ?>
         <h3 class=center><?php echo $result ?></h3>
     <?php } ?>
+    <h2 class=center style="padding-top: 2%">My Totals:</h2>
+    <?php
+        foreach ($exercises as &$sample){
+        ?>
+            <h3 class=center><?php echo $sample?>: <?php echo total($sample, $userId) ?></h3>
+            <?php
+        }
+    ?>
 </body>
