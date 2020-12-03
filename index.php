@@ -13,7 +13,7 @@
 </head>
 <body>
     <h1 style="float: left;"> Welcome to FitByte </h1>
-    <input type="button" value="Login/Signup" style="float: right; display: flex">
+    <a href="dashboard.php"><button style="float: right; display: flex">Login/Signup</button></a>
 
     <h2 class=center style="padding-top: 10%">Quick Add:</h2>
 
