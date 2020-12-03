@@ -5,6 +5,7 @@
     if (isset($_POST['log']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
         $result = newEntry($userId, $_POST['exercise'], $_POST['quantity']);
     }
+    $exercises = array("push-ups", "pull-ups", "plank");
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +24,15 @@
 
     <form class=center action="dashboard.php" method="post">
         Exercise:<br>
-        <input type="text" name="exercise"><br>
+        <select name="exercise">
+            <?php
+            foreach ($exercises as &$sample){
+            ?>
+                <option name="exercise" value="<?php echo $sample;?>"><?php echo $sample ?></option>
+                <?php
+            }
+            ?>
+        </select><br>
         Quantity: (For a plank enter # of seconds)<br>
         <input type="text" name="quantity"><br>
         <button type="submit" value="log" name="log">Log Data</button>
