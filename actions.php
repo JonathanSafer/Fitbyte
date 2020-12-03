@@ -37,4 +37,38 @@ function protectedEntry($username, $password, $exercise, $quantity){
     }
 }
 
+function protectedCreateAccount($username, $email, $first_name, $last_name, $password, $confirm_password){
+    if($password != $confirm_password){
+        return "passwords don't match";
+    }
+    //email cannot be in use
+    $emailQuery = "SELECT email FROM people WHERE email = '$email'";
+    $result = mysqli_query($GLOBALS['conn'], $emailQuery);
+    $row = mysqli_fetch_assoc($result);
+    if($row){
+        return "Email is already in use";
+    }
+    //username cannot be in use
+    $usernameQuery = "SELECT username FROM people WHERE username = '$username'";
+    $result = mysqli_query($GLOBALS['conn'], $usernameQuery);
+    $row = mysqli_fetch_assoc($result);
+    if($row){
+        return "Username is already in use";
+    }
+
+    //create the account
+    createAccount($username, $email, $first_name, $last_name, $password);
+    return "Account creation successful!";
+}
+
+function createAccount($username, $email, $first_name, $last_name, $password){
+    $entry = "INSERT INTO people (username, email, first_name, last_name, password) VALUES ('$username', '$email', '$first_name', '$last_name', sha1('$password'))";
+    if (mysqli_query($GLOBALS['conn'], $entry)) {
+        return "Successful log <br>";
+    } else {
+        $error = mysqli_error($GLOBALS['conn']);
+        return "$error<br>";
+    }
+}
+
 ?>

@@ -6,7 +6,6 @@
     if (isset($_POST['log']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
         $result = newEntry($userId, $_POST['exercise'], $_POST['quantity']);
     }
-    $exercises = array("push-ups", "pull-ups", "plank");
 ?>
 
 <!DOCTYPE html>
@@ -49,4 +48,5 @@
             <?php
         }
     ?>
+    
 </body>

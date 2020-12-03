@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1 > Welcome to FitByte </h1>
-<div class="center1">
+<div class="center">
 
         <div class="login-div">
             <p>Login</p>
@@ -19,5 +19,6 @@
         </form>
         </div>
 </div>
+<a href="sign_up_page.php"><button style="float: right; display: flex">Signup</button></a>
 </body>
 </html>
