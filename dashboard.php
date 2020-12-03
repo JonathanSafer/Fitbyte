@@ -1,5 +1,6 @@
 <?php include 'init.php'; 
     include 'actions.php';
+    include 'settings.php';
     //somehow we need to know the userID here (presumably stored in a session? @Robert)
     $userId = '1';//to be replaced
     if (isset($_POST['log']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
@@ -40,4 +41,12 @@
     <?php if (isset($result)) { ?>
         <h3 class=center><?php echo $result ?></h3>
     <?php } ?>
+    <h2 class=center style="padding-top: 2%">My Totals:</h2>
+    <?php
+        foreach ($exercises as &$sample){
+        ?>
+            <h3 class=center><?php echo $sample?>: <?php echo total($sample, $userId) ?></h3>
+            <?php
+        }
+    ?>
 </body>
