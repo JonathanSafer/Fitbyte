@@ -12,3 +12,15 @@ h1 {
   width: 50%;
   padding: 10px;
 }
+
+.center1 {
+  border: solid;
+  text-align: center;
+  width: 40%;
+  height: 20em;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 15em;
+
+}
+
