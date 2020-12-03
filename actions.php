@@ -1,13 +1,13 @@
 <?php
 
-function total($exercise, $name){ //return total amount of an exercise done by a person
-    $query = "SELECT $exercise FROM body_weight_exercises, people WHERE body_weight_exercises.p_id = people.id AND people.name = '$name'";
-    $result = mysqli_query($GLOBALS['conn'], $query) or die("Error in $query at total function");
+function total($exercise, $user_id){ //return total amount of an exercise done by a person
+    $query = "SELECT $amount FROM exercises WHERE p_id = $user_id AND exercise = $exercise";
+    $result = mysqli_query($GLOBALS['conn'], $query);
     $sum = 0;
     while($entry = mysqli_fetch_assoc($result)) {
-        $sum = $sum + $entry[$exercise];
+        $sum = $sum + $entry[$amount];
     }
-    return "$name has done $sum $exercise" . "<br>";
+    return "$sum";
 }
 
 function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
