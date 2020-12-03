@@ -7,12 +7,16 @@
     <title>fitbyte</title>
 </head>
 <body>
-<div class="center">
+<h1 > Welcome to FitByte </h1>
+<div class="center1">
+        <div class="login-div">
+            <p>Login</p>
         <form action="#" method="POST" class="">
             Email: <input type="email" name="email"> <br>
             Password: <input type="password" name="password"> <br>
-            <input type="submit" value="" class="submit">
+            <input type="submit" value="login" class="submit">
         </form>
+        </div>
 </div>
 </body>
 </html>
