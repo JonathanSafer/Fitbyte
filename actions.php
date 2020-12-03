@@ -36,15 +36,16 @@ function newEntry($user_id, $exercise, $quantity){//new entry for an exercise do
         return "Successful log <br>";
     } else {
         $error = mysqli_error($GLOBALS['conn']);
-        return "$error <br>";
+        return "$error<br>";
     }
 }
 
 function protectedEntry($username, $password, $exercise, $quantity){
     $query = "SELECT id FROM people WHERE username = '$username' AND password = sha1('$password')";
     $result = mysqli_query($GLOBALS['conn'], $query);
-    if($result){
-        return newEntry(mysqli_fetch_assoc($result)["id"], $exercise, $quantity);
+    $row = mysqli_fetch_assoc($result);    
+    if($row){
+        return newEntry($row["id"], $exercise, $quantity);
     } else {
         return "username or password is incorrect";
     }
