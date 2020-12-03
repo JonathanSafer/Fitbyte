@@ -3,6 +3,7 @@
     if (isset($_POST['log']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
         $result = protectedEntry($_POST['username'], $_POST['password'], $_POST['exercise'], $_POST['quantity']);
     }
+    $exercises = array("push-ups", "pull-ups", "plank");
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,15 @@
         Password:<br>
         <input type="text" name="password"><br>
         Exercise:<br>
-        <input type="text" name="exercise"><br>
+        <select name="exercise">
+            <?php
+            foreach ($exercises as &$sample){
+            ?>
+                <option name="exercise" value="<?php echo $sample;?>"><?php echo $sample ?></option>
+                <?php
+            }
+            ?>
+        </select><br>
         Quantity: (For a plank enter # of seconds)<br>
         <input type="text" name="quantity"><br>
         <button type="submit" value="log" name="log">Log Data</button>
