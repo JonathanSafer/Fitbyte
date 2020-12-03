@@ -9,7 +9,7 @@
 <body>
 <h1 > Welcome to FitByte </h1>
 <div class="center1">
-<p class="login"> login</p>
+
         <div class="login-div">
             <p>Login</p>
         <form action="#" method="POST" class="">
