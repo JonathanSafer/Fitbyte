@@ -9,15 +9,16 @@
 <body>
 <h1 > Welcome to FitByte </h1>
 <div class="center1" >
-                    
+<p class="login"> Sign up</p>
      <form action="login.php">
-         <input type="text" placeholder="First Name" name="first_name" id="fname" >
-        <input type="text" placeholder="Last Name" name="last_name" id="lname" ><br />
-        <input type="text" name="username" id="username" placeholder="username">
-        <input type="text" placeholder="Email" name="email" id="mail" > <br />
-         <input type="password" placeholder="Password" name="account_password" id="password" >
-        <input type="password" placeholder="Confirm Password" name="confirm_password" id="cpassword" ><br />
-         <input type="submit" value="Create Account" class="sumbit">
+     <label for=""></label>
+         <input type="text" placeholder="First Name" name="first_name" id="fname" class="s">
+        <input type="text" placeholder="Last Name" name="last_name" id="lname" class="s"><br />
+        <input type="text" name="username" id="username" placeholder="username" class="s">
+        <input type="text" placeholder="Email" name="email" id="mail" class="s"> <br />
+         <input type="password" placeholder="Password" name="account_password" id="password" class="s">
+        <input type="password" placeholder="Confirm Password" name="confirm_password" id="cpassword" class="s"><br />
+         <input type="submit" value="Create Account" class="sumbit"class="s">
                         
       </form>
 
