@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="fitbyte.css">
 </head>
 <body>
-    <h1> Welcome to FitByte </h1>
-    <input type="button" value="Login/Signup" style="float: right;">
+    <h1 style="float: left;"> Welcome to FitByte </h1>
+    <input type="button" value="Login/Signup" style="float: right; display: flex">
 
-    <h2 class=center>Quick Add:</h2>
+    <h2 class=center style="padding-top: 10%">Quick Add:</h2>
 
 
-    <form class=center action="index.php" method="post">
+    <form class=center action="index.php"method="post">
         Username:<br>
         <input type="text" name="username"><br>
         Password:<br>
