@@ -13,9 +13,9 @@
         <div class="login-div">
             <p>Login</p>
         <form action="#" method="POST" class="">
-             <input type="email" name="email" placeholder="Email"> 
-            <input type="password" name="password" placeholder="Password"> 
-            <input type="submit" value="login" class="submit">
+             <input type="email" name="email" placeholder="Email" class="s"> 
+            <input type="password" name="password" placeholder="Password" class="s"> 
+            <input type="submit" value="login" class="submit" class="s">
         </form>
         </div>
 </div>
