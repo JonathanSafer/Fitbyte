@@ -1,25 +1,73 @@
 <?php
 
-function total($exercise, $name){ //return total amount of an exercise done by a person
-    $query = "SELECT $exercise FROM body_weight_exercises, people WHERE body_weight_exercises.p_id = people.id AND people.name = '$name'";
-    $result = mysqli_query($GLOBALS['conn'], $query) or die("Error in $query at total function");
+function total($exercise, $user_id){ //return total amount of an exercise done by a person
+    $query = "SELECT quantity FROM exercises WHERE p_id = $user_id AND exercise = '$exercise'";
+    $result = mysqli_query($GLOBALS['conn'], $query);
     $sum = 0;
     while($entry = mysqli_fetch_assoc($result)) {
-        $sum = $sum + $entry[$exercise];
+        $sum = $sum + $entry['quantity'];
     }
-    return "$name has done $sum $exercise" . "<br>";
+    return "$sum";
 }
 
-function newEntry($name, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
+function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
-    $query = "SELECT id FROM people WHERE name = '$name'";
-    $result = mysqli_query($GLOBALS['conn'], $query) or die("$name is not a valid name");
-    $p_id = mysqli_fetch_assoc($result)['id'];
-    $entry = "INSERT INTO body_weight_exercises (p_id, $exercise) VALUES ($p_id, $quantity)";
+    
+    if (!is_int($quantity) || $quantity <= 0) {
+        return 'You should enter a positive whole number';
+    }
+    
+    $entry = "INSERT INTO exercises (p_id, exercise, quantity) VALUES ('$user_id', '$exercise', '$quantity')";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
     } else {
-        return "Failed to log data <br>";
+        $error = mysqli_error($GLOBALS['conn']);
+        return "$error<br>";
+    }
+}
+
+function protectedEntry($username, $password, $exercise, $quantity){
+    $query = "SELECT id FROM people WHERE username = '$username' AND password = sha1('$password')";
+    $result = mysqli_query($GLOBALS['conn'], $query);
+    $row = mysqli_fetch_assoc($result);    
+    if($row){
+        return newEntry($row["id"], $exercise, $quantity);
+    } else {
+        return "username or password is incorrect";
+    }
+}
+
+function protectedCreateAccount($username, $email, $first_name, $last_name, $password, $confirm_password){
+    if($password != $confirm_password){
+        return "passwords don't match";
+    }
+    //email cannot be in use
+    $emailQuery = "SELECT email FROM people WHERE email = '$email'";
+    $result = mysqli_query($GLOBALS['conn'], $emailQuery);
+    $row = mysqli_fetch_assoc($result);
+    if($row){
+        return "Email is already in use";
+    }
+    //username cannot be in use
+    $usernameQuery = "SELECT username FROM people WHERE username = '$username'";
+    $result = mysqli_query($GLOBALS['conn'], $usernameQuery);
+    $row = mysqli_fetch_assoc($result);
+    if($row){
+        return "Username is already in use";
+    }
+
+    //create the account
+    createAccount($username, $email, $first_name, $last_name, $password);
+    return "Account creation successful!";
+}
+
+function createAccount($username, $email, $first_name, $last_name, $password){
+    $entry = "INSERT INTO people (username, email, first_name, last_name, password) VALUES ('$username', '$email', '$first_name', '$last_name', sha1('$password'))";
+    if (mysqli_query($GLOBALS['conn'], $entry)) {
+        return "Successful log <br>";
+    } else {
+        $error = mysqli_error($GLOBALS['conn']);
+        return "$error<br>";
     }
 }
 

@@ -1,8 +1,10 @@
 <?php include 'init.php'; 
     include 'actions.php';
     include 'settings.php';
-    if (isset($_POST['log']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
-        $result = protectedEntry($_POST['username'], $_POST['password'], $_POST['exercise'], $_POST['quantity']);
+    //somehow we need to know the userID here (presumably stored in a session? @Robert)
+    $userId = '1';//to be replaced
+    if (isset($_POST['log']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
+        $result = newEntry($userId, $_POST['exercise'], $_POST['quantity']);
     }
 ?>
 
@@ -13,17 +15,14 @@
     <link rel="stylesheet" href="fitbyte.css">
 </head>
 <body>
-    <h1 style="float: left;"> Welcome to FitByte </h1>
-    <a href="login.php"><button style="float: right; display: flex">Login/Signup</button></a>
+
+    <h1 style="float: left;"> My Dashboard </h1>
+    <input type="button" value="Logout" style="float: right; display: flex">
 
     <h2 class=center style="padding-top: 10%">Quick Add:</h2>
 
 
-    <form class=center action="index.php"method="post">
-        Username:<br>
-        <input type="text" name="username"><br>
-        Password:<br>
-        <input type="password" name="password"><br>
+    <form class=center action="dashboard.php" method="post">
         Exercise:<br>
         <select name="exercise">
             <?php
@@ -41,4 +40,13 @@
     <?php if (isset($result)) { ?>
         <h3 class=center><?php echo $result ?></h3>
     <?php } ?>
+    <h2 class=center style="padding-top: 2%">My Totals:</h2>
+    <?php
+        foreach ($exercises as &$sample){
+        ?>
+            <h3 class=center><?php echo $sample?>: <?php echo total($sample, $userId) ?></h3>
+            <?php
+        }
+    ?>
+    
 </body>

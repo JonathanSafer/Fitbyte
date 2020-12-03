@@ -1,0 +1,27 @@
+body {
+  background-color: lightblue;
+}
+
+h1 {
+  color: navy;
+  margin-left: 20px;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.s {
+  display: block;
+  width: 25em;
+  margin-bottom: 2em;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+.login {
+  margin-left: 0;
+}
