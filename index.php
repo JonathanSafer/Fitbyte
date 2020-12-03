@@ -14,8 +14,8 @@
 </head>
 <body>
     <h1 style="float: left;"> Welcome to FitByte </h1>
-    <a href="dashboard.php"><button style="float: right; display: flex">Login/Signup</button></a>
-
+    <a href="login.php"><button style="float: right; display: flex">Login/</button></a>
+    <a href="sign_up_page.php"><button style="float: right; display: flex">Signup</button></a>
     <h2 class=center style="padding-top: 10%">Quick Add:</h2>
 
 
