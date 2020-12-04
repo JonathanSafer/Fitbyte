@@ -8,8 +8,8 @@
         $result = newEntry($userId, $_POST['exercise'], $_POST['quantity']);
     }
     if(isset($_POST['logout'])){
-        logout();
         echo "logging out";
+        logout();
     }
 ?>
 
@@ -23,7 +23,7 @@
 
     <h1 style="float: left;"> My Dashboard </h1>
     <form action="dashboard.php" method="post">
-        <input type="button" value="Logout" name="logout" style="float: right; display: flex">
+        <button type="submit" value="logout" name="logout" style="float: right; display: flex">Logout</button>
     </form>
     <h2 class=center style="padding-top: 10%">Quick Add:</h2>
 

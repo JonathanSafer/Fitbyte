@@ -92,6 +92,10 @@ function login($username, $password){
 
 function logout(){
     //redirect to main page and end session
+    session_unset();
+    session_destroy();
+    header("Location: index.php");
+    exit();
 }
 
 ?>
