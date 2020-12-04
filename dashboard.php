@@ -1,10 +1,15 @@
 <?php include 'init.php'; 
     include 'actions.php';
     include 'settings.php';
+    session_start();
     //somehow we need to know the userID here (presumably stored in a session? @Robert)
-    $userId = '1';//to be replaced
+    $userId = $_SESSION["user_id"];//to be replaced
     if (isset($_POST['log']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
         $result = newEntry($userId, $_POST['exercise'], $_POST['quantity']);
+    }
+    if(isset($_POST['logout'])){
+        logout();
+        echo "logging out";
     }
 ?>
 
@@ -17,8 +22,9 @@
 <body>
 
     <h1 style="float: left;"> My Dashboard </h1>
-    <input type="button" value="Logout" style="float: right; display: flex">
-
+    <form action="dashboard.php" method="post">
+        <input type="button" value="Logout" name="logout" style="float: right; display: flex">
+    </form>
     <h2 class=center style="padding-top: 10%">Quick Add:</h2>
 
 
@@ -48,5 +54,5 @@
             <?php
         }
     ?>
-    
+
 </body>

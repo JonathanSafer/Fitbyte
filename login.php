@@ -1,3 +1,14 @@
+<?php include 'init.php'; 
+    include 'actions.php';
+    include 'settings.php';
+
+
+    if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password'])) {
+        //we have all the info, now attempt to create an acct with this info
+        $result = login($_POST['username'], $_POST['password']);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +24,15 @@
         <div class="login-div">
             <p>Login</p>
         <form action="#" method="POST" class="">
-             <input type="email" name="email" placeholder="Email" class="s"> 
+             <input type="text" name="username" placeholder="Username" class="s"> 
             <input type="password" name="password" placeholder="Password" class="s"> 
-            <input type="submit" value="login" class="submit" class="s">
+            <input type="submit" value="login" name="login" class="s">
         </form>
         </div>
 </div>
+<?php if (isset($result)) { ?>
+    <h3 class=center><?php echo $result ?></h3>
+<?php } ?>
 <a href="sign_up_page.php"><button style="float: right; display: flex">Signup</button></a>
 </body>
 </html>

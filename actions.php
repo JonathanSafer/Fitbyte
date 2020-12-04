@@ -3,6 +3,9 @@
 function total($exercise, $user_id){ //return total amount of an exercise done by a person
     $query = "SELECT quantity FROM exercises WHERE p_id = $user_id AND exercise = '$exercise'";
     $result = mysqli_query($GLOBALS['conn'], $query);
+    if(!$result){
+        return "0";
+    }
     $sum = 0;
     while($entry = mysqli_fetch_assoc($result)) {
         $sum = $sum + $entry['quantity'];
@@ -12,12 +15,12 @@ function total($exercise, $user_id){ //return total amount of an exercise done b
 
 function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
-    
-    if (!is_int($quantity) || $quantity <= 0) {
-        return 'You should enter a positive whole number';
+    $intQuantity = intval($quantity);
+    if (!is_int($intQuantity) || $intQuantity <= 0) {
+        return "Quantity must be a positive whole number";
     }
     
-    $entry = "INSERT INTO exercises (p_id, exercise, quantity) VALUES ('$user_id', '$exercise', '$quantity')";
+    $entry = "INSERT INTO exercises (p_id, exercise, quantity) VALUES ('$user_id', '$exercise', '$intQuantity')";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
     } else {
@@ -69,6 +72,26 @@ function createAccount($username, $email, $first_name, $last_name, $password){
         $error = mysqli_error($GLOBALS['conn']);
         return "$error<br>";
     }
+}
+
+function login($username, $password){
+    $query = "SELECT id FROM people WHERE username = '$username' AND password = sha1('$password')";
+    $result = mysqli_query($GLOBALS['conn'], $query);
+    $row = mysqli_fetch_assoc($result);    
+    if($row){
+        session_start();
+        //successful login -> redirect to dashboard
+        // user id = $row["id"]
+        $_SESSION["user_id"] = $row["id"];
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        return "username or password is incorrect";
+    }
+}
+
+function logout(){
+    //redirect to main page and end session
 }
 
 ?>
