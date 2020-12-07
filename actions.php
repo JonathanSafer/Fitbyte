@@ -20,7 +20,7 @@ function newEntry($user_id, $exercise, $quantity){//new entry for an exercise do
         return "Quantity must be a positive whole number";
     }
     
-    $entry = "INSERT INTO exercises (p_id, exercise, quantity) VALUES ('$user_id', '$exercise', '$intQuantity')";
+    $entry = "INSERT INTO exercises (p_id, exercise, quantity, time) VALUES ('$user_id', '$exercise', '$intQuantity', now())";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
     } else {
