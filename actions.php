@@ -66,7 +66,7 @@ function protectedCreateAccount($username, $email, $first_name, $last_name, $pas
 }
 
 function createAccount($username, $email, $first_name, $last_name, $password){
-    $entry = "INSERT INTO people (username, email, first_name, last_name, password) VALUES ('$username', '$email', '$first_name', '$last_name', sha1('$password'))";
+    $entry = "INSERT INTO people (username, email, firstName, lastName, password) VALUES ('$username', '$email', '$first_name', '$last_name', sha1('$password'))";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
     } else {
