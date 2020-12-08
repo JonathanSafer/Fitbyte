@@ -104,12 +104,15 @@ function logout(){
 <script>
     function dashChart(chartId, dataPoints, width, height){
         const buffer = 20
+        const virtualBuffer = buffer + 5
         console.log(dataPoints)
+
         const canvas = document.getElementById(chartId);
         const ctx = canvas.getContext("2d");
         drawBorders(ctx, width, height, buffer)
         drawTitles(ctx, width, height, buffer, chartId)
-        ctx.moveTo(buffer, height - buffer);
+
+        ctx.moveTo(virtualBuffer, height - virtualBuffer);
         const minX = Date.parse(dataPoints[0].label)
         const maxX = Date.parse(dataPoints[dataPoints.length-1].label)
         const xRange = maxX - minX
@@ -122,8 +125,8 @@ function logout(){
         let firstPoint = true
         for(const point of dataPoints){
             currentY += point.y
-            const x = (Date.parse(point.label) - minX)/xRange * (width - (buffer*2)) + buffer
-            const y = (height - buffer) - ((height - (buffer*2)) * currentY/maxY)
+            const x = (Date.parse(point.label) - minX)/xRange * (width - (virtualBuffer*2)) + virtualBuffer
+            const y = (height - virtualBuffer) - ((height - (virtualBuffer*2)) * currentY/maxY)
             console.log(x,y)
             if(firstPoint){
                 firstPoint = false
@@ -132,26 +135,18 @@ function logout(){
             }
             ctx.lineTo(x, y)
         }
+        ctx.strokeStyle = "#FF0000";
         ctx.stroke();
     }
 
     function drawBorders(ctx, width, height, buffer){
         ctx.moveTo(0, 0)
-        ctx.lineTo(0, height)
-        ctx.lineTo(width, height)
-        ctx.lineTo(width, 0)
-        ctx.lineTo(0, 0)
-        ctx.stroke();
-        ctx.moveTo(buffer, buffer)
-        ctx.lineTo(buffer, height - buffer)
-        ctx.lineTo(width - buffer, height - buffer)
-        ctx.lineTo(width - buffer, buffer)
-        ctx.lineTo(buffer, buffer)
-        ctx.stroke();
+        ctx.strokeRect(0, 0, width, height)
+        ctx.strokeRect(buffer, buffer, width - (buffer * 2), height - (buffer * 2))
     }
 
     function drawTitles(ctx, width, height, buffer, title){
         ctx.font = "15px Arial"
-        ctx.fillText(title, width/2 - title.length*3, 4*buffer/5)
+        ctx.fillText(title, width/2 - title.length*3, 3*buffer/4)
     }
 </script>
