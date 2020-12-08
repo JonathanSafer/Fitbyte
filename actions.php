@@ -141,6 +141,15 @@ function logout(){
 
         ctx.strokeStyle = "#FF0000";
         ctx.stroke();
+        addLabel(ctx, buffer, virtualBuffer, maxY)
+        addLabel(ctx, buffer, height - virtualBuffer, 0)
+        const startX = new Date(minX * 1000)
+        const startMonth = startX.getMonth()
+        const startDate = startX.getMonth().toString() + "/" + startX.getDate().toString()
+        addLabel(ctx, virtualBuffer * 1.4, height - (buffer * 0.7), startDate)
+        const endX = new Date(maxX * 1000)
+        const endDate = startX.getMonth().toString() + "/" + startX.getDate().toString()
+        addLabel(ctx, width - virtualBuffer, height - (buffer * 0.7), endDate)
     }
 
     function drawBorders(ctx, width, height, buffer){
@@ -152,5 +161,15 @@ function logout(){
     function drawTitles(ctx, width, height, buffer, title){
         ctx.font = "15px Arial"
         ctx.fillText(title, width/2 - title.length*3, 3*buffer/4)
+    }
+
+    function addLabel(ctx, xOffset, yOffset, label){
+        ctx.save();
+        ctx.translate(xOffset, yOffset);
+        ctx.rotate(-Math.PI/4);
+        ctx.textAlign = "center";
+        ctx.font = "12px Arial"
+        ctx.fillText(label, -3 * label.toString().length, 0);
+        ctx.restore();
     }
 </script>
