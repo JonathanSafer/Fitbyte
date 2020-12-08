@@ -24,8 +24,8 @@
 </head>
 <body>
 <h1 > Welcome to FitByte </h1>
-<div class="center" >
-<p class="login"> Sign up</p>
+<div class="center1" >
+<p class="login" style="color: white;"> Sign up</p>
      <form action="sign_up_page.php" method="post">
      <label for=""></label>
          <input type="text" placeholder="First Name" name="first_name" class="s" required>
@@ -34,7 +34,7 @@
         <input type="text" placeholder="Email" name="email" class="s" required> <br />
          <input type="password" placeholder="Password" name="password" class="s" required>
         <input type="password" placeholder="Confirm Password" name="confirm_password" class="s" required><br />
-         <input type="submit" value="create" class="sumbit"class="s" name="create">
+         <input type="submit" value="create account" class="sumbit"class="s" name="create">
                         
       </form>
     <?php if (isset($result)) { ?>
@@ -42,7 +42,10 @@
     <?php } ?>
 
 </div>
-<a href="login.php"><button style="float: right; display: flex">Login</button></a>
+<div class="login-ahci">
+<p class="login-ahc" >Already have an account? </p>
+<a href="login.php" class="login-ahc"><button  >Login</button></a>
+</div>
 
 </body>
 </html>
