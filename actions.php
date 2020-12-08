@@ -15,12 +15,11 @@ function total($exercise, $user_id){ //return total amount of an exercise done b
 
 function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
-    $intQuantity = intval($quantity);
-    if (!is_int($intQuantity) || $intQuantity <= 0) {
+    if (!is_int($quantity) || $quantity <= 0) {
         return "Quantity must be a positive whole number";
     }
     
-    $entry = "INSERT INTO exercises (p_id, exercise, quantity, time) VALUES ('$user_id', '$exercise', '$intQuantity', now())";
+    $entry = "INSERT INTO exercises (p_id, exercise, quantity, time) VALUES ('$user_id', '$exercise', '$quantity', now())";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
     } else {
@@ -114,7 +113,8 @@ function logout(){
 
         ctx.moveTo(virtualBuffer, height - virtualBuffer);
         const minX = Date.parse(dataPoints[0].label)
-        const maxX = Date.parse(dataPoints[dataPoints.length-1].label)
+        //const maxX = Date.parse(dataPoints[dataPoints.length-1].label)
+        const maxX = Date.now()
         const xRange = maxX - minX
         const minY = 0
         let maxY = 0
@@ -126,7 +126,7 @@ function logout(){
         for(const point of dataPoints){
             currentY += point.y
             const x = (Date.parse(point.label) - minX)/xRange * (width - (virtualBuffer*2)) + virtualBuffer
-            const y = (height - virtualBuffer) - ((height - (virtualBuffer*2)) * currentY/maxY)
+            const y = height - virtualBuffer - ((height - (virtualBuffer*2)) * currentY/maxY)
             console.log(x,y)
             if(firstPoint){
                 firstPoint = false
@@ -135,6 +135,10 @@ function logout(){
             }
             ctx.lineTo(x, y)
         }
+
+        //add current time as last data point
+        ctx.lineTo(width - virtualBuffer, virtualBuffer)
+
         ctx.strokeStyle = "#FF0000";
         ctx.stroke();
     }
