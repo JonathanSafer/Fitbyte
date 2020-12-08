@@ -15,7 +15,7 @@ function total($exercise, $user_id){ //return total amount of an exercise done b
 
 function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
-    if (!is_int($quantity) || $quantity <= 0) {
+    if (is_int($quantity) || $quantity <= 0) {
         return "Quantity must be a positive whole number";
     }
     
