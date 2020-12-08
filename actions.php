@@ -15,12 +15,11 @@ function total($exercise, $user_id){ //return total amount of an exercise done b
 
 function newEntry($user_id, $exercise, $quantity){//new entry for an exercise done. Time is entered in seconds
     //first determine id associated with user name
-    $intQuantity = intval($quantity);
-    if (!is_int($intQuantity) || $intQuantity <= 0) {
+    if (!is_int($quantity) || $quantity <= 0) {
         return "Quantity must be a positive whole number";
     }
     
-    $entry = "INSERT INTO exercises (p_id, exercise, quantity, time) VALUES ('$user_id', '$exercise', '$intQuantity', now())";
+    $entry = "INSERT INTO exercises (p_id, exercise, quantity, time) VALUES ('$user_id', '$exercise', '$quantity', now())";
     if (mysqli_query($GLOBALS['conn'], $entry)) {
         return "Successful log <br>";
     } else {
