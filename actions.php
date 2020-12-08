@@ -153,6 +153,8 @@ function logout(){
     }
 
     function drawBorders(ctx, width, height, buffer){
+        ctx.fillStyle = "#ADD8E6";
+        ctx.fillRect(0, 0, width, height);
         ctx.moveTo(0, 0)
         ctx.strokeRect(0, 0, width, height)
         ctx.strokeRect(buffer, buffer, width - (buffer * 2), height - (buffer * 2))
