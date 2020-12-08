@@ -19,7 +19,7 @@
 </head>
 <body>
 <h1 > Welcome to FitByte </h1>
-<div class="center">
+<div class="center1">
 
         <div class="login-div">
             <p>Login</p>
@@ -31,7 +31,7 @@
         </div>
 </div>
 <?php if (isset($result)) { ?>
-    <h3 class=center><?php echo $result ?></h3>
+    <h3 class=center1><?php echo $result ?></h3>
 <?php } ?>
 <div class="login-dhc">
     <p>Don't have an account</p>
