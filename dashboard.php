@@ -13,6 +13,7 @@
     }
 ?>
 
+
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>FitByte</title>
@@ -51,6 +52,50 @@
         foreach ($exercises as &$sample){
         ?>
             <h3 class=center><?php echo $sample?>: <?php echo total($sample, $userId) ?></h3>
+            <?php
+        }
+        unset($sample)
+    ?>
+    <h2 class=center style="padding-top: 2%">Exercises Over Time:</h2>
+    <?php
+        foreach ($exercises as &$sample){
+            $query = "SELECT * FROM exercises WHERE p_id = $userId AND exercise = '$sample'";
+            $result = mysqli_query($GLOBALS['conn'], $query);
+            if(!$result){//no result no need for a graph
+                continue;
+            }
+            $dataPoints = array();
+            $dates = array();//will be needed to find earliest date
+            while($entry = mysqli_fetch_assoc($result)) {//populate array of results for this person with this exercise type
+                if($entry['time']){
+                    $dataPoints[] = array("label" => $entry['time'], "y" => $entry['quantity']);
+                    $dates[] = $entry['time'];
+                }
+            }
+            if(count($dataPoints) == 0){//if array is empty don't bother with graph
+                continue;
+            }
+            array_multisort(array_column($dataPoints, 'label'), SORT_ASC, $dataPoints);
+            // foreach ($dataPoints[]){
+            //     //loop up sum to make progress chart
+            // }
+            //find earliest entry (this will be the beginning of the graph
+            $earliestDate = min($dates);
+            $currentDate = date("Y-m-d H:i:s");
+
+
+        ?>
+            <!-- <h3 class=center><?php echo $sample?>: <?php echo $earliestDate; echo json_encode($dataPoints, JSON_NUMERIC_CHECK) ?>
+             --></h3>
+            <canvas id="<?php echo $sample?>" width="300" height="150"></canvas>
+            <script>
+                dashChart("<?php echo $sample?>", <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK)?>, 300, 150)
+                // console.log(dataPoints)
+                // var ctx = c.getContext("2d");
+                // ctx.moveTo(0, 0);
+                // ctx.lineTo(200, 100);
+                // ctx.stroke();
+            </script>
             <?php
         }
     ?>
