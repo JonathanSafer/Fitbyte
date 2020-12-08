@@ -61,8 +61,8 @@ function protectedCreateAccount($username, $email, $first_name, $last_name, $pas
 
     //create the account
     $result = createAccount($username, $email, $first_name, $last_name, $password);
-    echo $result;
-    return "Account creation successful!";
+    return $result;
+    //return "Account creation successful!";
 }
 
 function createAccount($username, $email, $first_name, $last_name, $password){
