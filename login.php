@@ -26,13 +26,16 @@
         <form action="#" method="POST" class="">
              <input type="text" name="username" placeholder="Username" class="s"> 
             <input type="password" name="password" placeholder="Password" class="s"> 
-            <input type="submit" value="login" name="login" class="s">
+            <input type="submit" value="login" name="login" class="s" >
         </form>
         </div>
 </div>
 <?php if (isset($result)) { ?>
     <h3 class=center><?php echo $result ?></h3>
 <?php } ?>
-<a href="sign_up_page.php"><button style="float: right; display: flex">Signup</button></a>
+<div class="login-dhc">
+    <p>Don't have an account</p>
+    <a href="sign_up_page.php"><button  >Signup</button></a>
+</div>
 </body>
 </html>
