@@ -38,4 +38,7 @@
     <a href="sign_up_page.php"><button  >Signup</button></a>
 </div>
 </body>
+<?php
+ include 'footer.php';
+?>
 </html>
