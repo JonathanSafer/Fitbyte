@@ -102,9 +102,8 @@ function logout(){
 
 <script>
     function dashChart(chartId, dataPoints, width, height){
-        const buffer = 20
+        const buffer = 40
         const virtualBuffer = buffer + 5
-        console.log(dataPoints)
 
         const canvas = document.getElementById(chartId);
         const ctx = canvas.getContext("2d");
@@ -113,7 +112,6 @@ function logout(){
 
         ctx.moveTo(virtualBuffer, height - virtualBuffer);
         const minX = Date.parse(dataPoints[0].label)
-        //const maxX = Date.parse(dataPoints[dataPoints.length-1].label)
         const maxX = Date.now()
         const xRange = maxX - minX
         const minY = 0
@@ -143,12 +141,12 @@ function logout(){
         ctx.stroke();
         addLabel(ctx, buffer, virtualBuffer, maxY)
         addLabel(ctx, buffer, height - virtualBuffer, 0)
-        const startX = new Date(minX * 1000)
+        const startX = new Date(dataPoints[0].label)
         const startMonth = startX.getMonth()
-        const startDate = startX.getMonth().toString() + "/" + startX.getDate().toString()
+        const startDate = (startX.getMonth() + 1).toString() + "/" + startX.getDate().toString()
         addLabel(ctx, virtualBuffer * 1.4, height - (buffer * 0.7), startDate)
-        const endX = new Date(maxX * 1000)
-        const endDate = startX.getMonth().toString() + "/" + startX.getDate().toString()
+        const endX = new Date(maxX)
+        const endDate = (endX.getMonth() + 1).toString() + "/" + endX.getDate().toString()
         addLabel(ctx, width - virtualBuffer, height - (buffer * 0.7), endDate)
     }
 
@@ -158,19 +156,24 @@ function logout(){
         ctx.moveTo(0, 0)
         ctx.strokeRect(0, 0, width, height)
         ctx.strokeRect(buffer, buffer, width - (buffer * 2), height - (buffer * 2))
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(buffer, buffer, width - (buffer * 2), height - (buffer * 2));
     }
 
     function drawTitles(ctx, width, height, buffer, title){
-        ctx.font = "15px Arial"
-        ctx.fillText(title, width/2 - title.length*3, 3*buffer/4)
+        ctx.fillStyle = "#000000";
+        ctx.font = `${buffer/2}px Arial`
+        ctx.fillText(title[0].toUpperCase() + title.slice(1), width/2 - title.length*3, 3*buffer/4)
     }
 
     function addLabel(ctx, xOffset, yOffset, label){
+        ctx.fillStyle = "#000000";
         ctx.save();
         ctx.translate(xOffset, yOffset);
         ctx.rotate(-Math.PI/4);
         ctx.textAlign = "center";
-        ctx.font = "12px Arial"
+        const fontSize = Math.min(Math.ceil(50/label.toString().length), 20)
+        ctx.font = `${fontSize}px Arial`
         ctx.fillText(label, -3 * label.toString().length, 0);
         ctx.restore();
     }

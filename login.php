@@ -26,7 +26,7 @@
         <form action="#" method="POST" class="">
              <input type="text" name="username" placeholder="Username" class="s"> 
             <input type="password" name="password" placeholder="Password" class="s"> 
-            <input type="submit" value="login" name="login" class="s" >
+            <input type="submit" value="Login" name="login" class="s" >
         </form>
         </div>
 </div>
