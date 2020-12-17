@@ -87,9 +87,9 @@
         ?>
             <!-- <h3 class=center><?php echo $sample?>: <?php echo $earliestDate; echo json_encode($dataPoints, JSON_NUMERIC_CHECK) ?>
              --></h3>
-            <canvas id="<?php echo $sample?>" width="300" height="150"></canvas>
+            <canvas id="<?php echo $sample?>" width="400" height="200"></canvas>
             <script>
-                dashChart("<?php echo $sample?>", <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK)?>, 300, 150)
+                dashChart("<?php echo $sample?>", <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK)?>, 400, 200)
                 // console.log(dataPoints)
                 // var ctx = c.getContext("2d");
                 // ctx.moveTo(0, 0);
