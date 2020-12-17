@@ -11,6 +11,7 @@
 <title>FitByte</title>
 <head>
     <link rel="stylesheet" href="fitbyte.css">
+    
 </head>
 <body>
     <h1 style="float: left;"> Welcome to FitByte </h1>
@@ -42,3 +43,7 @@
         <h3 class=center><?php echo $result ?></h3>
     <?php } ?>
 </body>
+<?php
+ include 'footer.php';
+?>
+</html>
