@@ -74,6 +74,14 @@ function createAccount($username, $email, $first_name, $last_name, $password){
     }
 }
 
+function joinCompetition(){
+
+}
+
+function createCompetition(){
+    
+}
+
 function login($username, $password){
     $query = "SELECT id FROM people WHERE username = '$username' AND password = sha1('$password')";
     $result = mysqli_query($GLOBALS['conn'], $query);

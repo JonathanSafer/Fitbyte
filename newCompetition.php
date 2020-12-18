@@ -7,12 +7,12 @@
 
     if (isset($_POST['create']) && isset($_POST['compName']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
         //we have all the info, now attempt to create a competition with this info
-        $result = createGroup($_POST['compName'], $_POST['password'], $_POST['confirm_password'], $userId);
+        $result = createCompetition($_POST['compName'], $_POST['password'], $_POST['confirm_password'], $userId);
         //result options: competition name is in use, passwords don't match, you must leave a competition before you can create another
     }
     if (isset($_POST['join']) && isset($_POST['compName']) && isset($_POST['password'])) {
         //we have all the info, now attempt to join a group with this info
-        $result = joinGroup($_POST['compName'], $_POST['password'], $userId);
+        $result = joinCompetition($_POST['compName'], $_POST['password'], $userId);
         //result options: competition name or pw does not exist, competition is full, you must leave a competition before you can join another
     }
 ?>
