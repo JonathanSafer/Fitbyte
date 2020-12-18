@@ -3,13 +3,6 @@
     include 'settings.php';
     session_start();
     $userId = $_SESSION["user_id"];
-    if (isset($_POST['log']) && isset($_POST['exercise']) && isset($_POST['quantity'])) {
-        $result = newEntry($userId, $_POST['exercise'], $_POST['quantity']);
-    }
-    if(isset($_POST['logout'])){
-        echo "logging out";
-        logout();
-    }
 ?>
 
 
@@ -21,44 +14,16 @@
 </head>
 <body>
 
-    <h1 style="float: left;"> My Dashboard </h1>
+    <h1 style="float: left;"> My Competitions </h1>
     <form action="dashboard.php" method="post">
         <button type="submit" value="logout" name="logout" style="float: right; display: flex">Logout</button>
     </form>
-    <form action="competitions.php" method="post">
-        <button type="submit" value="competitions" name="Competitions" style="float: right; display: flex">Competitions</button>
+    <form action="dashboard.php" method="post">
+        <button type="submit" value="dashboard" name="Dashboard" style="float: right; display: flex">Dashboard</button>
     </form>
-    <h2 class=center style="padding-top: 10%">Quick Add:</h2>
-
-
-    <form class=center action="dashboard.php" method="post">
-        Exercise:<br>
-        <select name="exercise">
-            <?php
-            foreach ($exercises as &$sample){
-            ?>
-                <option name="exercise" value="<?php echo $sample;?>"><?php echo $sample ?></option>
-                <?php
-            }
-            ?>
-        </select><br>
-        Quantity: (For a plank enter # of seconds)<br>
-        <input type="text" name="quantity"><br>
-        <button type="submit" value="log" name="log">Log Data</button>
+    <form style="padding-top: 10%" action="newCompetition.php" method="post">
+        <button type="submit" value="new" name="newCompetition" class="center">Join or start a new competition</button>
     </form>
-    <?php if (isset($result)) { ?>
-        <h3 class=center><?php echo $result ?></h3>
-    <?php } ?>
-    <h2 class=center style="padding-top: 2%">My Totals:</h2>
-    <?php
-        foreach ($exercises as &$sample){
-        ?>
-            <h3 class=center><?php echo $sample?>: <?php echo total($sample, $userId) ?></h3>
-            <?php
-        }
-        unset($sample)
-    ?>
-    <h2 class=center style="padding-top: 2%">Exercises Over Time:</h2>
     <?php
         foreach ($exercises as &$sample){
             $query = "SELECT * FROM exercises WHERE p_id = $userId AND exercise = '$sample'";
