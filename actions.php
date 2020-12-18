@@ -74,12 +74,75 @@ function createAccount($username, $email, $first_name, $last_name, $password){
     }
 }
 
-function joinCompetition(){
-
+function joinCompetition($compName, $password, $user_id){
+    if(getNumberOfComps($user_id) >= 20){
+        return "You must leave a competition before you can join another";
+    }
+    $query = "SELECT id FROM competitions WHERE $user_id IN (person0, person1, person2, person3, person4, person5, person6, person7, person8, person9) AND name = '$compName'";
+    $result = mysqli_query($GLOBALS['conn'], $query);
+    $row = mysqli_fetch_assoc($result);
+    if($row){
+        return "You are already a part of this competition";
+    }
+    $query = "SELECT person0, person1, person2, person3, person4, person5, person6, person7, person8, person9, password FROM competitions WHERE name = '$compName'";
+    $result = mysqli_query($GLOBALS['conn'], $query);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row){
+        return "Competition with this name does not exist";
+    }
+    $entryPoint = NULL;
+    foreach ($row as $key => $value){
+        if(is_null($row[$key])){
+            $entryPoint = $key;
+            break;
+        }
+    }
+    if(!$entryPoint){
+        return "This competition is full";
+    }
+    if(sha1($password) != $row['password']){
+        return "Password is incorrect";
+    }
+    $entry = "UPDATE competitions SET $entryPoint = $user_id WHERE name = '$compName' ";
+    if (mysqli_query($GLOBALS['conn'], $entry)) {
+        return "Competition joined successfully!";
+    } else {
+        $error = mysqli_error($GLOBALS['conn']);
+        return "$error<br>";
+    }
 }
 
-function createCompetition(){
-    
+function createCompetition($compName, $password, $confirm_password, $user_id){
+    if($password != $confirm_password){
+        return "Passwords don't match";
+    }
+    if(getNumberOfComps($user_id) >= 20){
+        return "You must leave a competition before you can create another";
+    }
+    $query = "SELECT id FROM competitions WHERE name = '$compName'";
+    $result = mysqli_query($GLOBALS['conn'], $query);
+    $row = mysqli_fetch_assoc($result);    
+    if($row){
+        return "A competition with this name already exists";
+    }
+    //create new competition
+    $entry = "INSERT INTO competitions (name, password, person0) VALUES ('$compName', sha1('$password'), '$user_id')";
+    if (mysqli_query($GLOBALS['conn'], $entry)) {
+        return "Competition creation successful!";
+    } else {
+        $error = mysqli_error($GLOBALS['conn']);
+        return "$error<br>";
+    }
+}
+
+function getNumberOfComps($user_id){
+    $counter = 0;
+    $query = "SELECT id FROM competitions WHERE $user_id IN (person0, person1, person2, person3, person4, person5, person6, person7, person8, person9)";
+    $result = mysqli_query($GLOBALS['conn'], $query);
+    while($row = mysqli_fetch_assoc($result)){
+        $counter++;
+    }
+    return $counter;
 }
 
 function login($username, $password){
